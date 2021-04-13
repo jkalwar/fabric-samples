@@ -15,11 +15,9 @@ PeerOrgs:
     EnableNodeOUs: true
     Specs:
       - Hostname: peer0
-        CommonName: peer0.org2.example.com
         SANS:
          - localhost
       - Hostname: peer1
-        CommonName: peer1.org2.example.com
         SANS:
          - localhost
     # ---------------------------------------------------------------------------
