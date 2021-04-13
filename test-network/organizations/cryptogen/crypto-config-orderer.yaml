@@ -18,5 +18,6 @@ OrdererOrgs:
     # ---------------------------------------------------------------------------
     Specs:
       - Hostname: orderer
+      - CommonName: orderer.example.com
         SANS:
           - localhost
