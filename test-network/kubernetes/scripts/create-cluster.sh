@@ -49,7 +49,8 @@ echo "VERSION=$VERSION"
 SUBNET_ID=$(az network vnet subnet list --resource-group $RESOURCE_GROUP --vnet-name $VNET_NAME --query [].id --output tsv) 
 
 echo "Creating AKS Cluster"
-# create the aks cluster with the azure cni
+
+# Create the aks cluster with the azure cni
 # Detailed explanation of the options is available here : https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest
 
 az aks create \
@@ -66,8 +67,9 @@ az aks create \
 --docker-bridge-address 172.18.0.1/16 \
 --generate-ssh-keys \
 --node-count 2 \
---max-pods 120 \
---node-vm-size "Standard_B2s" --service-principal XXXXXX --client-secret XXXXXX --nodepool-name "dcpoo1" 
+--max-pods 60 \
+--node-vm-size "Standard_B2s"
+--nodepool-name "nodepoo1" 
 
 
 #kubectl is the main Kubernetes command-line client you use to interact with your cluster and is available in Cloud Shell. A cluster context is required to allow kubectl to connect to a cluster. The context contains the cluster's address, a user, and a namespace. Use the az aks get-credentials command to configure your instance of kubectl.
