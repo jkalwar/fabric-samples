@@ -67,7 +67,7 @@ az aks create \
 --generate-ssh-keys \
 --node-count 2 \
 --max-pods 120 \
---node-vm-size "Standard_B2s" --service-principal 9aced3d6-97f9-4dcc-9468-16839875eb89 --client-secret ea62bbf5-7fd1-4089-865d-75efcf6a37d2 --nodepool-name "dcpoo1" 
+--node-vm-size "Standard_B2s" --service-principal XXXXXX --client-secret XXXXXX --nodepool-name "dcpoo1" 
 
 
 #kubectl is the main Kubernetes command-line client you use to interact with your cluster and is available in Cloud Shell. A cluster context is required to allow kubectl to connect to a cluster. The context contains the cluster's address, a user, and a namespace. Use the az aks get-credentials command to configure your instance of kubectl.
