@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ca-orderer
+  labels: {
+    component: ca-orderer,
+    type: ca
+  }
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: ca-orderer
+      type: ca
+  template:
+    metadata:
+      labels:
+        component: ca-orderer
+        type: ca
+    spec:
+      volumes:
+        - name: host-mount
+          persistentVolumeClaim:
+            claimName: pv-storage-claim-test-network
+      containers:
+        - name: ca-orderer
+          image: hyperledger/fabric-ca:1.4.9
+          command: ["fabric-ca-server"]
+          args: ["start" , "--ca.certfile" , "/etc/hyperledger/fabric-ca-server/ca-cert.pem" , "--ca.keyfile",  "/etc/hyperledger/fabric-ca-server/msp/keystore/0823cdc7b57824c79cf69597dfb0f60be0a392f93b8d25e203c40c8bb120e0fe_sk",  "-b", "admin:adminpw"]
+          ports:
+            - containerPort: 9054
+          env:
+            - name: FABRIC_CA_HOME
+              value: /etc/hyperledger/fabric-ca-server
+            - name: FABRIC_CA_SERVER_CA_NAME
+              value: ca-orderer
+            - name: FABRIC_CA_SERVER_TLS_ENABLED
+              value: "true"
+            - name: FABRIC_CA_SERVER_TLS_CERTFILE
+              value: /etc/hyperledger/fabric-ca-server/tls-cert.pem
+            - name: FABRIC_CA_SERVER_TLS_KEYFILE
+              value: /etc/hyperledger/fabric-ca-server/msp/keystore/8b976f0fbc8b6f446d4f0edff5f896268357c0535f339d7433e067a10cd2281b_sk
+            - name: FABRIC_CA_SERVER_PORT
+              value: "9054"
+          volumeMounts:
+            - mountPath: /etc/hyperledger/fabric-ca-server
+              name: host-mount
+              subPath: artifacts/organizations/fabric-ca/ordererOrg
+          resources:
+            requests:
+              cpu: 25m
+              memory: 16Mi
+            limits:
+              cpu: 150m
+              memory: 96Mi
+            

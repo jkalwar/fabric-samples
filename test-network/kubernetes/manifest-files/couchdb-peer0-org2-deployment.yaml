@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: couchdb-peer0-org2
+  labels: {
+    component: peer0-org2,
+    type: couchdb,
+    org: org2
+  }
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: peer0-org2
+      type: couchdb
+      org: org2
+  template:
+    metadata:
+      labels:
+        component: peer0-org2
+        type: couchdb
+        org: org2
+    spec:
+      volumes:
+        - name: host-mount
+          persistentVolumeClaim:
+            claimName: pv-storage-claim-test-network
+      containers:
+        - name: couchdb-peer0-org2
+          image: couchdb:3.1.1
+          ports:
+            - containerPort: 5984
+          env:
+            - name: COUCHDB_USER
+              value: admin
+            - name: COUCHDB_PASSWORD
+              value: adminpw
+          volumeMounts:
+            - mountPath: /opt/couchdb/data
+              name: host-mount
+              subPath: data/couchdb-peer0.org2.example.com/data
+          resources:
+            requests:
+              cpu: 25m
+              memory: 48Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi

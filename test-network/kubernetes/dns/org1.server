@@ -1,0 +1,16 @@
+org1.example.com:53 {
+    errors
+    cache 30
+
+    rewrite stop {
+    name regex peer0.org1.example.com peer0-org1.test-network.svc.cluster.local
+    answer name peer0-org1.test-network.svc.cluster.local peer0.org1.example.com
+    } 
+
+    kubernetes cluster.local in-addr.arpa ip6.arpa {
+    pods insecure
+    upstream
+    fallthrough in-addr.arpa ip6.arpa
+    }
+    forward .  /etc/resolv.conf 
+}

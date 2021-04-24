@@ -10,7 +10,7 @@ const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
 const path = require('path');
 const { buildCAClient, registerAndEnrollUser, enrollAdmin } = require('../../test-application/javascript/CAUtil.js');
-const { buildCCPOrg1, buildWallet } = require('../../test-application/javascript/AppUtil.js');
+const { buildCCPOrg1, buildCCPOrg1K8s ,buildWallet } = require('../../test-application/javascript/AppUtil.js');
 
 const channelName = 'mychannel';
 const chaincodeName = 'basic';
@@ -72,8 +72,8 @@ function prettyJSONString(inputString) {
 async function main() {
 	try {
 		// build an in memory object with the network configuration (also known as a connection profile)
-		const ccp = buildCCPOrg1();
-
+		//const ccp = buildCCPOrg1();
+		const ccp = buildCCPOrg1K8s();
 		// build an instance of the fabric ca services client based on
 		// the information in the network configuration
 		const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
@@ -101,7 +101,7 @@ async function main() {
 			await gateway.connect(ccp, {
 				wallet,
 				identity: org1UserId,
-				discovery: { enabled: true, asLocalhost: true } // using asLocalhost as this gateway is using a fabric network deployed locally
+				discovery: { enabled: true, asLocalhost: false } // using asLocalhost as this gateway is using a fabric network deployed locally
 			});
 
 			// Build a network instance based on the channel where the smart contract is deployed

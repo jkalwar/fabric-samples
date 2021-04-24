@@ -25,6 +25,22 @@ exports.buildCCPOrg1 = () => {
 	return ccp;
 };
 
+exports.buildCCPOrg1K8s = () => {
+	// load the common connection configuration file
+	const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'kubernetes', 'connection-config','connection-org1.json');
+	const fileExists = fs.existsSync(ccpPath);
+	if (!fileExists) {
+		throw new Error(`no such file or directory: ${ccpPath}`);
+	}
+	const contents = fs.readFileSync(ccpPath, 'utf8');
+
+	// build a JSON object from the file contents
+	const ccp = JSON.parse(contents);
+
+	console.log(`Loaded the network configuration located at ${ccpPath}`);
+	return ccp;
+};
+
 exports.buildCCPOrg2 = () => {
 	// load the common connection configuration file
 	const ccpPath = path.resolve(__dirname, '..', '..', 'test-network',

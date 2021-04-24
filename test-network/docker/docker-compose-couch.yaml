@@ -22,6 +22,8 @@ services:
       - COUCHDB_PASSWORD=adminpw
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
+    volumes:
+      - ../data/couchdb-peer0.org1.example.com:/opt/couchdb/data
     ports:
       - "5984:5984"
     networks:
@@ -51,6 +53,8 @@ services:
       - COUCHDB_PASSWORD=adminpw
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
+    volumes:
+      - ../data/couchdb-peer0.org2.example.com:/opt/couchdb/data
     ports:
       - "7984:5984"
     networks:

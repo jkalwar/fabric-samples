@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ca-org2
+  labels: {
+    component: ca-org2,
+    type: ca
+  }
+spec:
+  type: ClusterIP
+  selector:
+    component:  ca-org2
+    type: ca
+  ports:
+    - port: 7054
+      targetPort: 7054
+  
