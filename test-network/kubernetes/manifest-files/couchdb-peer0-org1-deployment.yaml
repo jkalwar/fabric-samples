@@ -35,10 +35,12 @@ spec:
               value: admin
             - name: COUCHDB_PASSWORD
               value: adminpw
+            - name: NODENAME
+              value: localhost
           volumeMounts:
             - mountPath: /opt/couchdb/data
               name: host-mount
-              subPath: data/couchdb-peer0.org1.example.com/data
+              subPath: data/couchdb-peer0.org1.example.com
           resources:
             requests:
               cpu: 25m

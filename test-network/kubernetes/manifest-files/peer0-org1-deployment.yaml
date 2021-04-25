@@ -39,6 +39,8 @@ spec:
           env:
             - name: CORE_VM_ENDPOINT
               value: unix:///var/run/docker.sock
+            - name: CORE_PEER_ADDRESSAUTODETECT
+              value: "true"
             - name: CORE_PEER_ADDRESS
               value: peer0.org1.example.com:7051
             - name: CORE_PEER_ID
@@ -77,8 +79,8 @@ spec:
               value: hyperledger/fabric-ccenv:2.3.1
             - name: CORE_PEER_PROFILE_ENABLED
               value: "true"
-            - name: CORE_PEER_CHAINCODEADDRESS
-              value: "peer0.org1.example.com:7052"
+            - name: CORE_VM_DOCKER_ATTACHSTDOUT
+              value: "true"
           volumeMounts:
             - mountPath: /var/run
               name: host
@@ -98,4 +100,3 @@ spec:
             limits:
               cpu: 250m
               memory: 256Mi
-          
